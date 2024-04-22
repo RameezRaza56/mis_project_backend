@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AssignCourseCoordinatorController;
+use App\Http\Controllers\CourseController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +27,6 @@ Route::fallback(function () {
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('validateuser', 'validateUser');
-    
     Route::post('login_api', 'login_api');
     Route::post('register', 'register');
     Route::post('logout', 'logout');
@@ -36,6 +38,25 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('get-read-notification', 'getReadNotification');
     Route::post('mark-read-notification', 'markReadNotification');
     Route::post('GetBiometicAttendance', 'GetBiometicAttendance');
+});
+
+Route::controller(AssignCourseCoordinatorController::class) ->group(function() {
+    Route::post('fetchCourses','fetchCourses');
+    Route::post('fetchInstructors', 'fetchInstructors');
+});
+
+// Route::controller(CourseController::class)->group(function() {
+//     Route::post('getCoursesBySession', [CourseController::class, 'getCoursesBySession']);
+// });
+
+// Route::post('getCoursesBySession', [CourseController::class, 'getCoursesBySession']);
+// Route::post('getProfessorsOfCourse', [CourseController::class, 'getProfessorsOfCourse']);
+// Route::post('markCoordinator', [CourseController::class, 'markCoordinator']);
+
+Route::controller(CourseController::class) ->group(function() {
+    Route::post('getCoursesBySession', [CourseController::class, 'getCoursesBySession']);
+    Route::post('getProfessorsOfCourse', [CourseController::class, 'getProfessorsOfCourse']);
+    Route::post('markCoordinator', [CourseController::class, 'markCoordinator']);
 });
 
 // here add routes Module wise
